@@ -73,7 +73,13 @@ module.exports=Vue.component('breadcrumbtoc', {
 			
 			for (let j=0;j<items.length;j++){
 				let attrs={value:items[j].l};
-				options.push( h('option',{attrs}, items[j].t ) );
+				let t=items[j].t;
+				const at=t.indexOf("|");
+				if (at>-1) {
+					attrs.title=t.substr(0,at);
+					t=t.substr(at+1);
+				}
+				options.push( h('option',{attrs}, t ) );
 			}
 			selects.push( h('select',{
 				on:{input:this.onselect },
